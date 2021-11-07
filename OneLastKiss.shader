@@ -47,11 +47,11 @@ Shader "Hidden/Shader/OneLastKiss"
     	float maxValue = Luminance(LOAD_TEXTURE2D_X(_SourceTexture, uv));
     	for (int x = -radius; x < radius; x++)
     	{
-    		for (int y = -radius; y < radius; y++)
-    		{
-    			int2 pixelOffset = int2(x, y);
-    			maxValue = max(maxValue, Luminance(LOAD_TEXTURE2D_X(_SourceTexture, uv + pixelOffset)));
-    		}
+            for (int y = -radius; y < radius; y++)
+            {
+                int2 pixelOffset = int2(x, y);
+    		maxValue = max(maxValue, Luminance(LOAD_TEXTURE2D_X(_SourceTexture, uv + pixelOffset)));
+            }
     	}
     	return maxValue;
     }
@@ -60,10 +60,10 @@ Shader "Hidden/Shader/OneLastKiss"
     {
         UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
 
-		uint2 positionSS = uint2(input.positionCS.xy);
-		float col = Luminance(LOAD_TEXTURE2D_X(_SourceTexture, positionSS));
-		float maxValue = GetNearbyMax(positionSS,_Radius);
-		col /= maxValue;
+	uint2 positionSS = uint2(input.positionCS.xy);
+	float col = Luminance(LOAD_TEXTURE2D_X(_SourceTexture, positionSS));
+	float maxValue = GetNearbyMax(positionSS,_Radius);
+	col /= maxValue;
 
         return float4(col.xxx, 1);
     }
